@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Happy Birthday Bhagee 💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    :root {
+      --pink: #ff6b9d; --rose: #ff4081; --gold: #ffd700;
+      --purple: #c084fc; --dark: #110820; --dark2: #1e0f33;
+      --glass: rgba(255,255,255,0.10);
+    }
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden; /* No free scrolling between screens */
+      background: var(--dark);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      position: fixed; inset: 0;
+    }
+
+    /* ===== STEP SECTION ARCHITECTURE ===== */
+    .step-section {
+      display: none;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: 30px 20px 80px;
+      flex-direction: column; align-items: center; justify-content: center;
+      box-sizing: border-box; text-align: center;
+    }
+    .step-section.active {
+      display: flex !important;
+      animation: stepIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes stepIn {
+      from { opacity: 0; transform: scale(0.96) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* ===== LANDING ===== */
+    #landing {
+      background: radial-gradient(ellipse at 50% 30%, #3d0d5e 0%, #1a0a1e 55%, #080410 100%);
+      position: absolute; overflow: hidden;
+    }
+    #heartCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    .floating-emojis { position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+    .float-emoji {
+      position: absolute; font-size: 18px;
+      animation: floatUp linear infinite; opacity: 0;
+    }
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translateY(100vh) scale(0.5); }
+      10% { opacity: 1; } 90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-20vh) scale(1.2) rotate(15deg); }
+    }
+    .landing-inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .gift-icon { font-size: 78px; animation: giftBounce 2.2s ease-in-out infinite; filter: drop-shadow(0 0 24px rgba(255,215,0,.6)); }
+    @keyframes giftBounce {
+      0%,100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-18px) rotate(4deg); }
+    }
+    .landing-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(42px, 11vw, 64px);
+      background: linear-gradient(135deg, #ffd700, #ff6b9d, #c084fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; background-size: 200% 200%;
+      animation: shimmer 3s ease-in-out infinite; line-height: 1.1;
+    }
+    @keyframes shimmer {
+      0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; }
+    }
+    .landing-sub {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(24px, 7vw, 36px);
+      color: #ff9ec4; opacity: .95;
+    }
+    .landing-hint { font-size: 14px; color: rgba(255,255,255,.6); letter-spacing: .5px; }
+    .tap-btn {
+      margin-top: 14px;
+      padding: 16px 44px;
+      border: none; border-radius: 50px; cursor: pointer;
+      background: linear-gradient(135deg, #ff4081, #c084fc, #ff9800);
+      background-size: 200% 200%;
+      color: white; font-family: 'Outfit', sans-serif;
+      font-size: 19px; font-weight: 700; letter-spacing: .5px;
+      animation: gradShift 3s ease infinite, pulseGlow 2s ease-in-out infinite;
+      transition: transform .2s;
+    }
+    .tap-btn:active { transform: scale(.94); }
+    @keyframes gradShift {
+      0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; }
+    }
+    @keyframes pulseGlow {
+      0%,100% { box-shadow: 0 0 30px rgba(255,64,129,.5), 0 0 60px rgba(255,64,129,.2); }
+      50% { box-shadow: 0 0 55px rgba(255,64,129,.9), 0 0 110px rgba(255,64,129,.4); }
+    }
+
+    /* ===== COMMON HEADINGS ===== */
+    .sec-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      color: var(--pink); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .sec-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(28px, 7.5vw, 40px);
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 6px; text-align: center; line-height: 1.25;
+    }
+    .sec-sub { font-size: 13.5px; color: rgba(255,255,255,.65); text-align: center; margin-bottom: 20px; max-width: 380px; }
+
+    /* ===== STORY TIMELINE ===== */
+    #sec-timeline { background: linear-gradient(160deg, #1a0a1e, #2d1b3d, #1a0a1e); }
+    .story-wrap { width: 100%; max-width: 420px; position: relative; }
+    .story-progress-bar {
+      height: 3px; background: linear-gradient(90deg, var(--rose), var(--gold));
+      border-radius: 2px; margin-bottom: 14px;
+      transition: width .4s ease;
+    }
+    .story-card {
+      background: var(--glass); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 24px; padding: 26px 20px;
+      text-align: center; box-shadow: 0 8px 32px rgba(255,107,157,.2);
+      display: none;
+    }
+    .story-card.active { display: block; animation: fadeSlide .35s ease; }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateX(25px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .story-emoji { font-size: 50px; margin-bottom: 8px; display: block; }
+    .story-date { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+    .story-title { font-family: 'Dancing Script', cursive; font-size: 26px; color: white; margin-bottom: 10px; }
+    .story-body { font-size: 14px; color: rgba(255,255,255,.85); line-height: 1.75; }
+
+    .story-nav-row { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+    .nav-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.07); color: white;
+      font-size: 22px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; backdrop-filter: blur(8px);
+    }
+    .nav-btn:active { background: rgba(255,107,157,.35); transform: scale(.9); }
+    .dots { display: flex; gap: 6px; }
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,.3); transition: all .3s; cursor: pointer;
+    }
+    .dot.on { background: var(--pink); transform: scale(1.4); }
+
+    .next-btn {
+      margin-top: 20px;
+      padding: 13px 34px; border-radius: 50px;
+      border: 1.5px solid rgba(255,107,157,.5);
+      background: rgba(255,107,157,.15);
+      color: #ff9ec4; font-family: 'Outfit', sans-serif;
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      backdrop-filter: blur(10px); transition: all .25s;
+    }
+    .next-btn:active { transform: scale(.96); background: rgba(255,107,157,.3); }
+
+    /* ===== QUIZ ===== */
+    #sec-quiz { background: linear-gradient(160deg, #110820, #1f0b35, #110820); }
+    .quiz-box { width: 100%; max-width: 420px; }
+    .quiz-card {
+      background: var(--glass); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 24px; padding: 26px 20px;
+      box-shadow: 0 8px 32px rgba(192,132,252,.18);
+    }
+    .q-num { font-size: 11px; letter-spacing: 2px; color: rgba(255,215,0,.8); font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+    .q-text { font-size: clamp(16px, 4.5vw, 19px); font-weight: 600; color: white; line-height: 1.55; margin-bottom: 18px; }
+    .q-opts { display: flex; flex-direction: column; gap: 9px; }
+    .q-opt {
+      padding: 13px 16px; border-radius: 14px;
+      border: 1.5px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.9); font-family: 'Outfit', sans-serif;
+      font-size: 14.5px; cursor: pointer; text-align: left; transition: all .2s;
+    }
+    .q-opt:active { transform: scale(.97); }
+    .q-opt.correct { background: rgba(72,199,142,.25); border-color: #48c78e; color: #48c78e; font-weight: 600; }
+    .q-opt.wrong { background: rgba(255,107,107,.25); border-color: #ff6b6b; color: #ff6b6b; }
+    .quiz-result { text-align: center; display: none; padding: 15px 0; }
+    .score-big { font-size: 60px; margin-bottom: 8px; }
+    .score-msg { font-size: 16px; color: rgba(255,255,255,.9); line-height: 1.6; }
+
+    /* ===== GIFT BOX ===== */
+    #sec-gifts { background: linear-gradient(160deg, #1e0a2e, #2d1b1b, #1a0a1e); }
+    .env-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; width: 100%; max-width: 400px;
+    }
+    .env-card {
+      background: var(--glass); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px; padding: 20px 12px; text-align: center;
+      cursor: pointer; transition: all .25s ease;
+      backdrop-filter: blur(14px); position: relative;
+    }
+    .env-card:active { transform: scale(.94); }
+    .env-card.opened { border-color: rgba(255,215,0,.45); background: rgba(255,215,0,.08); }
+    .env-icon { font-size: 38px; display: block; margin-bottom: 6px; }
+    .env-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.7); line-height: 1.4; white-space: pre-line; }
+    .env-check {
+      position: absolute; top: 8px; right: 8px;
+      width: 18px; height: 18px; background: var(--gold);
+      border-radius: 50%; font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; color: #000;
+    }
+
+    /* Modal */
+    .modal-bg {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,.75); backdrop-filter: blur(8px);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .modal-bg.show { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: linear-gradient(160deg, #2d1b3d, #1a0a2e);
+      border: 1px solid rgba(255,255,255,.16); border-radius: 28px 28px 0 0;
+      padding: 30px 22px 45px; width: 100%; max-width: 460px;
+      text-align: center; position: relative;
+      transform: translateY(60px); transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+    }
+    .modal-bg.show .modal-box { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.08); color: white;
+      font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .m-emoji { font-size: 48px; margin-bottom: 10px; }
+    .m-title { font-family: 'Dancing Script', cursive; font-size: 26px; color: var(--gold); margin-bottom: 12px; }
+    .m-body { font-size: 15px; color: rgba(255,255,255,.85); line-height: 1.8; }
+
+    /* ===== WRAPPED ===== */
+    #sec-wrapped { background: var(--dark); }
+    .wrapped-frame {
+      width: 100%; max-width: 400px;
+      border-radius: 24px; overflow: hidden;
+      position: relative; min-height: 350px;
+    }
+    .w-slide {
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 24px; text-align: center; position: relative; min-height: 350px;
+    }
+    .w-slide.active { display: flex; animation: fadeSlide .35s ease; }
+    .w-bg { position: absolute; inset: 0; z-index: 0; }
+    .w-inner { position: relative; z-index: 1; }
+    .w-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.7); margin-bottom: 8px; }
+    .w-emoji { font-size: 58px; display: block; margin-bottom: 12px; }
+    .w-num {
+      font-size: clamp(38px, 12vw, 68px); font-weight: 700; line-height: 1.1;
+      background: linear-gradient(135deg, var(--gold), white);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 4px;
+    }
+    .w-unit { font-size: clamp(16px, 4.5vw, 22px); font-weight: 600; color: white; margin-bottom: 10px; }
+    .w-desc { font-size: 13.5px; color: rgba(255,255,255,.75); line-height: 1.65; max-width: 290px; margin: 0 auto; }
+    .wrapped-nav { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+
+    /* ===== FINAL CARD ===== */
+    #sec-final {
+      background: radial-gradient(ellipse at center, #3d0d5e 0%, #1a0a1e 75%);
+      position: absolute; overflow-y: auto;
+    }
+    #confettiCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .final-inner { position: relative; z-index: 1; max-width: 400px; width: 100%; margin: auto 0; }
+    .final-heart { font-size: 54px; animation: hb 1.2s ease-in-out infinite; }
+    @keyframes hb { 0%,100%{transform:scale(1);} 50%{transform:scale(1.18);} }
+    .final-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(30px, 8vw, 46px);
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1.2; margin: 10px 0;
+    }
+    .final-letter {
+      background: var(--glass); border: 1px solid rgba(255,255,255,.14);
+      border-radius: 20px; padding: 22px 18px;
+      font-size: 14.5px; color: rgba(255,255,255,.9);
+      line-height: 1.8; text-align: left; backdrop-filter: blur(14px);
+      max-height: 300px; overflow-y: auto; white-space: pre-line;
+      margin-bottom: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .replay-btn {
+      padding: 13px 34px; border-radius: 50px;
+      border: 1.5px solid rgba(255,107,157,.5);
+      background: rgba(255,107,157,.15);
+      color: #ff9ec4; font-family: 'Outfit', sans-serif;
+      font-size: 15px; font-weight: 600; cursor: pointer; transition: all .25s;
+    }
+    .replay-btn:active { transform: scale(.95); }
+
+    /* ===== BOTTOM NAV ===== */
+    #bnav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 58px;
+      background: rgba(8,4,16,.92); backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: none; align-items: center; justify-content: space-around;
+      z-index: 500;
+    }
+    .bn {
+      flex: 1; height: 100%; border: none; background: transparent;
+      font-size: 22px; cursor: pointer; position: relative;
+      transition: transform .2s; display: flex; align-items: center; justify-content: center;
+    }
+    .bn:active { transform: scale(.84); }
+    .bn.on::after {
+      content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+      width: 5px; height: 5px; border-radius: 50%; background: var(--pink);
+      box-shadow: 0 0 8px var(--pink);
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,107,157,.4); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- ══ 00 LANDING ══ -->
+<section id="landing" class="step-section active">
+  <canvas id="heartCanvas"></canvas>
+  <div class="floating-emojis" id="floatBox"></div>
+  <div class="landing-inner">
+    <div class="gift-icon">🎁</div>
+    <h1 class="landing-title">Happy Birthday</h1>
+    <p class="landing-sub">භාගී 💖</p>
+    <p class="landing-hint">ඔයා වෙනුවෙන්ම හදපු පුංචි surprise එකක්...</p>
+    <button class="tap-btn" onclick="goToStep(1)">✨ Tap to Unwrap ✨</button>
+  </div>
+</section>
+
+<!-- ══ 01 TIMELINE ══ -->
+<section id="sec-timeline" class="step-section">
+  <div class="sec-tag">01 / Our Story</div>
+  <h2 class="sec-title">අපේ ලස්සන මතක ✨</h2>
+  <p class="sec-sub">අපේ ආදර කතාවේ විශේෂ මතක ටිකක්</p>
+
+  <div class="story-wrap" id="storyWrap">
+    <div class="story-progress-bar" id="storyBar" style="width:16.6%"></div>
+    <!-- cards injected by JS -->
+  </div>
+
+  <div class="story-nav-row" style="width:100%;max-width:420px;margin-top:14px;">
+    <button class="nav-btn" onclick="prevStory()">‹</button>
+    <div class="dots" id="storyDots"></div>
+    <button class="nav-btn" onclick="nextStory()">›</button>
+  </div>
+
+  <button class="next-btn" onclick="goToStep(2)">මීළඟ කොටස (Quiz) →</button>
+</section>
+
+<!-- ══ 02 QUIZ ══ -->
+<section id="sec-quiz" class="step-section">
+  <div class="sec-tag">02 / Fun Quiz</div>
+  <h2 class="sec-title">ඔයාට මතකද බලමු? 🤔</h2>
+  <p class="sec-sub">භාගී, බලමුද ඔයාට අපි ගැන මතකද කියලා! 💖</p>
+
+  <div class="quiz-box">
+    <div class="quiz-card" id="quizCard"></div>
+    <div class="quiz-result" id="quizResult">
+      <div class="score-big" id="scoreEmoji"></div>
+      <p class="score-msg" id="scoreMsg"></p>
+    </div>
+  </div>
+  <button class="next-btn" id="quizNextBtn" style="display:none;margin-top:22px;" onclick="goToStep(3)">තෑගි බලන්න යමු 💌 →</button>
+</section>
+
+<!-- ══ 03 GIFT ENVELOPES ══ -->
+<section id="sec-gifts" class="step-section">
+  <div class="sec-tag">03 / Open When...</div>
+  <h2 class="sec-title">භාගීට ආදර ලියුම් 💌</h2>
+  <p class="sec-sub">එකින් එක ඔබලා බලන්න ඔයාට තියෙන පණිවිඩ</p>
+
+  <div class="env-grid" id="envGrid"></div>
+  <button class="next-btn" id="giftsNextBtn" style="display:none;margin-top:22px;" onclick="goToStep(4)">අපේ Wrapped එක බලන්න ✨ →</button>
+</section>
+
+<!-- ══ 04 WRAPPED ══ -->
+<section id="sec-wrapped" class="step-section">
+  <div class="sec-tag">04 / Our Wrapped</div>
+  <h2 class="sec-title">අපේ ආදරේ Wrapped ✨</h2>
+  <p class="sec-sub">භාගී වෙනුවෙන්ම හැදුණු අපේ කතාව</p>
+
+  <div class="wrapped-frame" id="wrappedFrame"></div>
+  <div class="wrapped-nav">
+    <button class="nav-btn" onclick="prevWrapped()">‹</button>
+    <div class="dots" id="wrappedDots"></div>
+    <button class="nav-btn" onclick="nextWrapped()">›</button>
+  </div>
+  <button class="next-btn" style="margin-top:18px;" onclick="goToStep(5)">විශේෂ ලියුම බලන්න 💖 →</button>
+</section>
+
+<!-- ══ 05 FINAL CARD ══ -->
+<section id="sec-final" class="step-section">
+  <canvas id="confettiCanvas"></canvas>
+  <div class="final-inner">
+    <div class="final-heart">💖</div>
+    <h2 class="final-title">Happy Birthday,<br/><span id="gfNameEl">භාගී</span>!</h2>
+    <div class="final-letter" id="finalLetter"></div>
+    <button class="replay-btn" onclick="goToStep(0)">🔁 මුල ඉඳන් බලන්න</button>
+  </div>
+</section>
+
+<!-- ══ ENVELOPE MODAL ══ -->
+<div class="modal-bg" id="modalBg" onclick="modalTap(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="m-emoji" id="mEmoji"></div>
+    <h3 class="m-title" id="mTitle"></h3>
+    <p class="m-body" id="mBody"></p>
+  </div>
+</div>
+
+<!-- ══ BOTTOM NAV ══ -->
+<nav id="bnav">
+  <button class="bn on" onclick="goToStep(0)" data-step="0">🏠</button>
+  <button class="bn" onclick="goToStep(1)" data-step="1">📖</button>
+  <button class="bn" onclick="goToStep(2)" data-step="2">🎯</button>
+  <button class="bn" onclick="goToStep(3)" data-step="3">💌</button>
+  <button class="bn" onclick="goToStep(4)" data-step="4">✨</button>
+  <button class="bn" onclick="goToStep(5)" data-step="5">💖</button>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
